@@ -1,5 +1,6 @@
 foo = function(x){
   y = 3
+  browser()
   if(x > 0)
   {
     salutation = "Hello"
