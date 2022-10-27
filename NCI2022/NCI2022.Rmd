@@ -78,8 +78,8 @@ ul {
 
 - The use of multiple testing procedures (MTPs) changes statistical **power**
 - **Problem**: In some fields, current practice for determining statistical power for RCTs does not take the use of MTPs into account
-- **Solution**: Easy-to-use software for calculating power, sample sample size, and minimum detectable effect size (MDES)
-- Easy exploration of power over changes in assumed parameter values
+- **Solution**: Easy-to-use software for calculating power, sample size, and minimum detectable effect size (MDES) for RCTs
+- Easy exploration of power over different assumed parameter values
 
 <p style="float: left; font-size: 5pt; text-align: center; width: 30%; margin-right: 1%; margin-bottom: 2em"><img src="figures/agility1.jpg" style="width: 100%; height: 300px">Image by <a href="https://pixabay.com/users/yamabsm-1300729/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3120383">Yama Zsuzsanna Márkus</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3120383">Pixabay</a></p>
 <p style="float: left; font-size: 5pt; text-align: center; width: 30%; margin-right: 1%; margin-bottom: 0.5em;"><img src="figures/agility2.jpg" style="width: 100%; height: 300px">Image by <a href="https://pixabay.com/users/825545-825545/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=748260">Katrin B.</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=748260">Pixabay</a></p>
@@ -275,7 +275,7 @@ kable(pow, digits = 2)
 ```
 
 
-```{r, echo = FALSE, fig.height = 4.5, fig.width = 8}
+```{r, echo = FALSE, fig.height = 4.5, fig.width = 8, fig.align = 'center'}
 plot(pow)
 ```
 
@@ -378,7 +378,7 @@ gridZero <- update_grid(
 
 # Assessing sensitivity
 
-```{r echo = TRUE, fig.width = 10, fig.height = 6}
+```{r echo = TRUE, fig.width = 10, fig.height = 6, fig.align = 'center'}
 plot( gridZero, nrow = 1 )
 ```
 
