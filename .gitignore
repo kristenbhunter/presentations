@@ -3,3 +3,4 @@
 *files*
 *libs*
 *.DS_Store
+.Rhistory
