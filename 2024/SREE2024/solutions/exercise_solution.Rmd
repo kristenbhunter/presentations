@@ -1,0 +1,203 @@
+---
+title: "An Experimental Planning Analysis Exercise"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library(PUMP)
+library(tidyverse)
+
+set.seed(57749)
+```
+
+# Introduction
+
+You are designing a randomized control trial for an educational program.
+First, you would like to determine what your current study design will be able 
+to detect.
+If this is insufficient, you would like to know the necessary sample size to 
+achieve a desired level of precision.
+You also want to explore how different choices of parameter values will impact 
+your findings.
+
+Background information:
+
+- Your trial will test $4$ different outcomes, which you think are moderately 
+correlated (`rho = 0.4`).
+- Your current plan is to do a cluster design, which means that entire 
+districts will be assigned to either treatment or control 
+(randomization occurs at level 3). This corresponds to plan code `d_m = 'd3.3_m3rc2rc'`.
+- 50\% of the units will receive the treatment (`Tbar = 0.5`).
+- You plan to use a Holm adjustment to adjust for the multiple outcomes (`HO`).
+- You think there is going to be a treatment effect of about $0.25$ effect 
+size units on all outcomes.
+
+Currently, you have:
+
+- 12 school districts
+- 4 schools per district
+- 500 students per school
+
+You also have a few other pieces of information:
+
+- You have 4 covariates describing the students, 2 covariates describing 
+the schools, and no covariates at the district level. This corresponds to: `numCovar.1 = 4, numCovar.2 = 2, numCovar.3 = 0`. You think that the 
+student-level covariates are quite predictive of the outcomes, but your school-level covariates are not very predictive of the outcomes. You pick
+the explanatory values of the covariates at each level to be 
+`R2.1 = 0.6, R2.2 = 0.2, R2.3 = 0`.
+- You expect most of the variation to occur at the student level, not very 
+much variation to occur at the school level, and some variation to be at the 
+district level. In other words, schools within the same district should have 
+similar outcomes, but outcomes may vary moderately between districts. Based
+on these assumptions, you set `ICC.2 = 0.05, ICC.3 = 0.1`.
+
+## Exercises
+
+1. What is the minimal detectable effect size for your study if you want an 80% chance of detecting at least two of your four outcomes?
+*Hint*: think about what `power.definition` you will need.
+
+```{r Q1}
+library(PUMP)
+m1 <- pump_mdes(
+  d_m = "d3.3_m3rc2rc",
+  MTP = "HO",
+  power.definition = "min2",
+  target.power = 0.80,
+  M = 4,
+  K = 12,
+  J = 4,
+  nbar = 500,
+  Tbar = 0.5,
+  ICC.2 = 0.05, ICC.3 = 0.1,
+  numCovar.1 = 4, numCovar.2 = 2, numCovar.3 = 0,
+  R2.1 = 0.6, R2.2 = 0.2, R2.3 = 0,
+  rho = 0.4
+)
+print(m1)
+```
+
+_We have a fairly large MDES given this design.  I hope our treatment is super super effective!!!_
+
+
+2. You want to update your assumption concerning the predictive power of your 
+covariates. What happens to MDES if the level 1 covariates are highly 
+predictive of the first two outcomes, but not very predictive of the second two outcomes? We can set this using `R2.1 = c( 0.8, 0.8, 0.05, 0.05 )`.
+
+_We can specify outcome specific values for our parameters like so:_
+
+```{r Q2}
+m2 <- update(m1, 
+             R2.1 = c(0.8, 0.8, 0.05, 0.05))
+print(m2)
+```
+
+_Our MDES goes down a little bit._
+
+
+3.  Determine the number of school districts you would need with your 
+original MDES of 0.25 to achieve 80% *individual* power.
+
+_We can either make it all explicit, or use update().  Here is it as an explicit call:_
+
+```{r Q3.1}
+s1 <- pump_sample(
+  d_m = "d3.3_m3rc2rc",
+  target.power = 0.8,
+  power.definition = "D1indiv",
+  typesample = "K",
+  MTP = "HO",
+  alpha = 0.05,
+  MDES = 0.25,
+  M = 4,
+  J = 4,
+  nbar = 500,
+  Tbar = 0.5,
+  ICC.2 = 0.05, ICC.3 = 0.1,
+  numCovar.1 = 4, numCovar.2 = 2, numCovar.3 = 0,
+  R2.1 = 0.6, R2.2 = 0.2, R2.3 = 0,
+  rho = 0.4
+)
+print(s1)
+```
+
+_We need `r s1$Sample.size` districts, which seems somewhat implausible. We can also plot to show how power changes with sample size._
+
+```{r}
+plot(s1)
+```
+
+_Here is it as an update call:_
+
+```{r Q3.2}
+s1 <- update(m1, type = "sample", 
+                 typesample = "K", 
+                 MDES = 0.25,
+                 power.definition = "D1indiv")
+print(s1)
+```
+
+
+
+4. What happens to your needed sample size (number of school districts) if 
+2 of your 4 outcomes are not actually impacted by treatment?
+
+```{r Q4}
+s2 <- update(s1, numZero = 2)
+summary(s2)
+```
+
+_Needed sample size gets worse by a good chunk._
+
+5. Extend the above to check how number of schools districts needed 
+would vary over a range of values for the intraclass correlation at 
+levels 2 and 3 (ICC.2 and ICC.3).
+
+_Here we use `pump_sample_grid` via calling `update()`.  You give a range of parameters, in this case ICC.2 and ICC.3, and it runs `pump_sample` for each combination of values.  We get some warnings due to "flatness" meaning a range of sample sizes gives about the same power for some of these scenarios._
+
+```{r Q5, warning=FALSE, cache=TRUE}
+s2 <- update_grid(s1, 
+                  ICC.2 = c(0, 0.1, 0.2 ),
+                  ICC.3 = c(0, 0.1, 0.2 ) )
+s2
+```
+
+6. Visualize this change due to ICC.
+
+
+_All things you get back from these calls can be plotted, and the default plots are often informative_:
+
+```{r Q6}
+plot(s2, color = "ICC.3")
+```
+
+_For this design, if the ICCs are really low, we start to be ok, but things can fall apart quickly. This means our power calculation is fairly sensitive to the assumptions we are making._
+
+7. BONUS: Return to the MDES calculation from Question 1.
+What happens to the MDES if you change your design to randomize at the 
+school level instead? (Note: you will have to pick a new model, choose what 
+you want!)
+
+_We change to a "d3.2" model.  We can list supported designs like so:_
+
+```{r Q7.1}
+pump_info("context", comment = FALSE) %>%
+    filter(Design == "d3.2")
+```
+
+_We can specify the one we want using update()._
+
+```{r Q7.2}
+m3 <- update(m1, d_m = "d3.2_m3ff2rc")
+print(m3)
+```
+
+_Randomizing at the school level would substantially increase precision._
+
+
