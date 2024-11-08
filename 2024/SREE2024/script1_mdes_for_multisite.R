@@ -49,13 +49,12 @@ summary( m1 )
 ###############################
 
 # Change the script to calculate MDES for
-# 3 level design
-# Randomization at level 2
-# 20 schools, 6 classrooms per school, 23 kids per classroom
-
+# 30 classrooms, 23 kids per classroom
+# 90% power
+# 10 student-level covariates, R2 = 60%
 # ... your code ...
 
-# p2 <- ...
+# m2 <- ...
 
 
 ###############################

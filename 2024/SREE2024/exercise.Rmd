@@ -1,0 +1,117 @@
+---
+title: "An Experimental Planning Analysis Exercise"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library( PUMP )
+```
+
+# Introduction
+
+You are designing a randomized control trial for an educational program.
+First, you would like to determine what your current study design will be able 
+to detect.
+If this is insufficient, you would like to know the necessary sample size to 
+achieve a desired level of precision.
+You also want to explore how different choices of parameter values will impact 
+your findings.
+
+Background information:
+
+- Your trial will test $4$ different outcomes, which you think are moderately 
+correlated (`rho = 0.4`).
+- Your current plan is to do a cluster design, which means that entire 
+districts will be assigned to either treatment or control 
+(randomization occurs at level 3). This corresponds to plan code `d_m = 'd3.3_m3rc2rc'`.
+- 50\% of the units will receive the treatment (`Tbar = 0.5`).
+- You plan to use a Holm adjustment to adjust for the multiple outcomes (`HO`).
+- You think there is going to be a treatment effect of about $0.25$ effect 
+size units on all outcomes.
+
+Currently, you have:
+
+- 12 school districts
+- 4 schools per district
+- 500 students per school
+
+You also have a few other pieces of information:
+
+- You have 4 covariates describing the students, 2 covariates describing 
+the schools, and no covariates at the district level. This corresponds to: `numCovar.1 = 4, numCovar.2 = 2, numCovar.3 = 0`. You think that the 
+student-level covariates are quite predictive of the outcomes, but your school-level covariates are not very predictive of the outcomes. You pick
+the explanatory values of the covariates at each level to be 
+`R2.1 = 0.6, R2.2 = 0.2, R2.3 = 0`.
+- You expect most of the variation to occur at the student level, not very 
+much variation to occur at the school level, and some variation to be at the 
+district level. In other words, schools within the same district should have 
+similar outcomes, but outcomes may vary moderately between districts. Based
+on these assumptions, you set `ICC.2 = 0.05, ICC.3 = 0.1`.
+
+## Exercises
+
+1. What is the minimal detectable effect size for your study if you want an 80% chance of detecting at least two of your four outcomes?
+
+
+```{r}
+library( PUMP )
+# some code
+```
+
+2. You want to update your assumption concerning the predictive power of your 
+covariates. What happens to MDES if the level 1 covariates are highly 
+predictive of the first two outcomes, but not very predictive of the second two outcomes? We can set this using `R2.1 = c( 0.8, 0.8, 0.05, 0.05 )`.
+
+```{r}
+# some code
+
+```
+
+3.  Determine the number of school districts you would need with your 
+original MDES of 0.25 to achieve 80% *individual* power.
+
+```{r}
+# some code
+
+```
+
+4. What happens to your needed sample size (number of school districts) if 
+2 of your 4 outcomes are not actually impacted by treatment?
+
+```{r}
+# some code
+
+```
+
+
+5. Extend the above to check how number of schools districts needed 
+would vary over a range of values for the intraclass correlation at 
+levels 2 and 3 (ICC.2 and ICC.3).
+
+```{r}
+# some code
+
+```
+
+6. Visualize this change due to ICC.
+
+```{r}
+# some code
+
+```
+
+7. BONUS: What happens to the MDES if you change your design to randomize at the 
+school level instead? (Note: you will have to pick a new model, choose what 
+you want!)
+
+```{r}
+# some code
+
+```

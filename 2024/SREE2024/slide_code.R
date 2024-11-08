@@ -136,8 +136,6 @@ p1 <- pump_power(
   rho = 0.4              # test statistic correlation
 )
 
-
-
 ###############################
 # Our multisite experiment (with multiple outcomes)
 ###############################
@@ -187,7 +185,7 @@ ss1 <- pump_sample(
 ###############################
 
 pgrid <- update_grid(
-  pow,
+  p2,
   # vary parameter values
   rho = seq( 0, 0.9, by = 0.1),
   # compare multiple MTPs
@@ -195,3 +193,5 @@ pgrid <- update_grid(
 )
 
 plot( pgrid, var.vary = 'rho' )
+
+ggsave(file = here::here("pgrid.png"), width = 10, height = 7)
