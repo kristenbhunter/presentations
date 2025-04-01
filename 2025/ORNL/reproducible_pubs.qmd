@@ -1,0 +1,182 @@
+---
+title: "Publication Ready Documents Using R"
+subtitle: https://github.com/kristenbhunter/presentations/2025/ORNL
+author: Kristen Hunter
+date: April 2, 2025
+date-format: long
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    show-slide-number: all
+---
+
+```{r setup}
+#| echo: false
+library(palmerpenguins)
+```
+
+## Why use R markdown?
+
+- reproducibility
+- easy integration of R code
+- easy to update plots and tables
+- version control & collaboration through github
+
+## rticles package
+
+- R markdown templates for a variety of journals and publishers
+- What if your intended journal isn't listed?
+  - open source: add the template yourself!
+  - LaTeX fragment
+
+## Setting up your document
+
+- useful defaults
+- can be overwritten for a particular chunk
+
+```{r}
+#| echo: true
+#| eval: false
+knitr::opts_chunk$set(
+  cache = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.height = 4,
+  fig.width = 4,
+  fig.align = "center"
+)
+```
+
+## Setting up your document
+
+- set a seed
+- set `kable` options
+  - `options(knitr.kable.max_rows = 30)`
+  - `options(knitr.kable.NA = '')`
+- set a ggplot theme
+
+## Good practice: check yourself
+
+- Periodically clear cache
+- Turn on all warnings and errors
+- Make sure it still compiles!
+- Consider changing the seed
+
+## Restrain yourself
+
+:::: {.columns}
+
+::: {.column width="40%"}
+You can in theory write a combination of:
+
+- markdown
+- LaTeX
+- CSS
+- HTML
+- R
+:::
+
+::: {.column width="60%"}
+Example: tables
+
+- R
+  - `kable(data)`
+- HTML (and CSS)
+  - `column 1 | column 2`
+- LaTeX table
+  - `\begin{table}`
+:::
+
+::::
+
+## Restrain yourself
+
+:::: {.columns}
+
+::: {.column width="50%"}
+My personal recommendations
+
+- kable for tables
+- Default to LaTeX for everything else
+- Avoid HTML and CSS for PDF documents
+- Most customizable and powerful
+:::
+
+::: {.column width="50%"}
+Easy LaTeX features
+
+- Referencing other document sections dynamically (e.g. In Section 2, we discuss...)
+- Easy to change citation format
+- Easy to change document-level formatting
+:::
+
+::::
+
+## Good coding practice
+
+One output per chunk
+
+- Each figure, table, or output should have its own chunk
+
+Name your chunks
+
+- Helps with debugging and identifying slow points
+- Saves out figures with meaningful names
+
+## Demos
+
+- ORCID
+- Citations using natbib
+- Beautiful tables
+- Referencing tables
+- Referencing figures
+- Generating tables in a loop
+- Stargazer
+
+## Debugging: step one
+
+- Add `keep_tex: true` to YAML header
+- Use a LaTeX distribution to debug the .tex file directly to give you the line number
+
+```{r}
+#| echo: true
+#| eval: false
+output:
+  pdf_document:
+    keep_tex: true
+```
+
+- Never hurts to delete all the generated files (.tex, .aux, .log, .etc)
+
+
+
+## Debugging: when all else fails
+
+Two strategies:
+
+- Top-down: Start with all code chunks. Remove one chunk at a time until it knits successfully.
+- Bottom-up: Start with no chunks. Add one chunk at a time until it knits successfully.
+
+## Extra notes
+
+- Advanced: You can re-use bits of R markdown across multiple files.
+  - See [<span style="color:pink">this blog post </span>](https://www.garrickadenbuie.com/blog/dry-vignette-and-readme/) for more info.
+- R markdown and Quarto also produce word documents
+- You can write journal articles in quarto, but infrastructure is less developed
+
+## References
+
+- [<span style="color:pink">rticles package</span>](https://github.com/rstudio/rticles)
+- [<span style="color:pink">gallery of rticles templates</span>](https://pkgs.rstudio.com/rticles/articles/examples.html)
+- [<span style="color:pink">chunk options</span>](https://yihui.org/knitr/options/#chunk-options)
+- [<span style="color:pink">gallery of ggplot themes</span>](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+- [<span style="color:pink">quarto for scientists</span>](https://qmd4sci.njtierney.com/)
+- [<span style="color:pink">reproducible publishing with quarto</span>](https://mine-cetinkaya-rundel.github.io/quarto-jsm24/)
+
+
+
+
+
+
+
