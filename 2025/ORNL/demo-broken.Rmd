@@ -1,48 +1,9 @@
 ---
-title: "Demo Rmarkdown File"
+title: "Broken Demo Rmarkdown File"
 output:
   pdf_document:
     keep_tex: true
-date: "2025-03-31"
 ---
-
-# Citing tables
-
-```{r setup, warning = FALSE, message = FALSE}
-library(tidyverse)
-library(kableExtra)
-library(palmerpenguins)
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-```
-
-```{r penguinTable}
-knitr::kable(penguins[1:5, 1:5], digits = 3, booktabs = TRUE, 
-             position = "h!", 
-             caption = "Penguins!" ) %>%
-  kableExtra::kable_styling(position = "center")
-```
-
-Table \ref{tab:penguinTable} is a table of penguins.
-
-# Citing figures
-
-```{r penguinPlot, fig.cap="\\label{fig:penguinPlot}Penguin Bills"}
-plot <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
-  geom_point()
-print(plot)
-```
-
-Figure \ref{fig:penguinPlot} is a figure of penguins.
-
-# Generating tables in a loop
-
-```{r results = 'asis'}
-for (i in 1:2)
-{
-  print(knitr::kable(penguins[i,1:3], caption = paste("Penguins", i)))
-  cat("\\vspace{10mm}")
-}
-```
 
 # Stargazer
 

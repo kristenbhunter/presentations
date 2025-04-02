@@ -15,7 +15,8 @@ header-includes:
 library(tidyverse)
 library(kableExtra)
 library(palmerpenguins)
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.height = 2, fig.width = 2)
 ```
 
 # ORCID link
@@ -28,37 +29,35 @@ This is a standard citation \citep{Raudenbush2002}.
 
 \citet{Spybrook2014} is an in-text citation.
 
-# Beautiful tables
+# Default table
 
 ```{r}
-library(kableExtra)
-library(knitr)
 library(palmerpenguins)
-library(tidyverse)
 
+knitr::kable(penguins[1:5, 1:5], caption = "Penguins!")
+```
+
+
+# Some table options
+
+Note: it used to be `booktabs = TRUE` made prettier tables by default, but they seem to be default in the newest version of the package.
+
+```{r}
 # change NAs to print as dashed lines
 options(knitr.kable.NA = '-')
 
 # print table
 knitr::kable(penguins[1:5, 1:5], digits = 3, booktabs = TRUE, 
              position = "h!", 
-             caption = "Penguins!" ) %>%
-  kableExtra::kable_styling(position = "center")
+             caption = "Penguins!") %>%
+  kableExtra::kable_styling(position = "left", font_size = 7)
 ```
 
-# Default table
-
-```{r}
-options(knitr.kable.NA = NA)
-knitr::kable(penguins[1:5, 1:5], caption = "Penguins!")
-```
 
 # Citing tables
 
 ```{r penguinTable}
-knitr::kable(penguins[1:5, 1:5], digits = 3, booktabs = TRUE, 
-             position = "h!", 
-             caption = "Penguins!" ) %>%
+knitr::kable(penguins[1:5, 1:5], caption = "Penguins!") %>%
   kableExtra::kable_styling(position = "center")
 ```
 
@@ -66,7 +65,7 @@ Table \ref{tab:penguinTable} is a table of penguins.
 
 # Citing figures
 
-```{r penguinPlot, fig.cap="\\label{fig:penguinPlot}Penguin Bills"}
+```{r penguinPlot, fig.cap="\\label{fig:penguinPlot}Penguin Bills", fig.pos = "h!"}
 plot <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
   geom_point()
 print(plot)
@@ -74,6 +73,7 @@ print(plot)
 
 Figure \ref{fig:penguinPlot} is a figure of penguins.
 
+\clearpage
 # Generating tables in a loop
 
 ```{r results = 'asis'}
@@ -99,7 +99,6 @@ linear.2 <- lm(
 stargazer(linear.1, linear.2, title = "Results", align = TRUE, header = FALSE)
 ```
 
-# References
-
+\clearpage
 \bibliography{refs.bib}
 

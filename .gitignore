@@ -4,3 +4,7 @@
 *libs*
 *.DS_Store
 .Rhistory
+*.aux
+*.log
+*.synctex(busy)
+*_files*

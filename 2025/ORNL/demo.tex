@@ -146,7 +146,8 @@
 \FunctionTok{library}\NormalTok{(tidyverse)}
 \FunctionTok{library}\NormalTok{(kableExtra)}
 \FunctionTok{library}\NormalTok{(palmerpenguins)}
-\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{echo =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{warning =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{message =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{echo =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{warning =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{message =} \ConstantTok{FALSE}\NormalTok{,}
+                      \AttributeTok{fig.height =} \DecValTok{2}\NormalTok{, }\AttributeTok{fig.width =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -160,44 +161,12 @@ This is a standard citation \citep{Raudenbush2002}.
 
 \citet{Spybrook2014} is an in-text citation.
 
-\section{Beautiful tables}\label{beautiful-tables}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(kableExtra)}
-\FunctionTok{library}\NormalTok{(knitr)}
-\FunctionTok{library}\NormalTok{(palmerpenguins)}
-\FunctionTok{library}\NormalTok{(tidyverse)}
-
-\CommentTok{\# change NAs to print as dashed lines}
-\FunctionTok{options}\NormalTok{(}\AttributeTok{knitr.kable.NA =} \StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{)}
-
-\CommentTok{\# print table}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(penguins[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
-             \AttributeTok{position =} \StringTok{"h!"}\NormalTok{, }
-             \AttributeTok{caption =} \StringTok{"Penguins!"}\NormalTok{ ) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[t]{llrrr}
-\caption{\label{tab:unnamed-chunk-1}Penguins!}\\
-\toprule
-species & island & bill\_length\_mm & bill\_depth\_mm & flipper\_length\_mm\\
-\midrule
-Adelie & Torgersen & 39.1 & 18.7 & 181\\
-Adelie & Torgersen & 39.5 & 17.4 & 186\\
-Adelie & Torgersen & 40.3 & 18.0 & 195\\
-Adelie & Torgersen & - & - & -\\
-Adelie & Torgersen & 36.7 & 19.3 & 193\\
-\bottomrule
-\end{longtable}
-
 \section{Default table}\label{default-table}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{options}\NormalTok{(}\AttributeTok{knitr.kable.NA =} \ConstantTok{NA}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(palmerpenguins)}
+
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(penguins[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{caption =} \StringTok{"Penguins!"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -223,13 +192,46 @@ Adelie & Torgersen & NA & NA & NA \\
 Adelie & Torgersen & 36.7 & 19.3 & 193 \\
 \end{longtable}
 
+\section{Some table options}\label{some-table-options}
+
+Note: it used to be \texttt{booktabs\ =\ TRUE} made prettier tables by
+default, but they seem to be default in the newest version of the
+package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# change NAs to print as dashed lines}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{knitr.kable.NA =} \StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# print table}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(penguins[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
+             \AttributeTok{position =} \StringTok{"h!"}\NormalTok{, }
+             \AttributeTok{caption =} \StringTok{"Penguins!"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{position =} \StringTok{"left"}\NormalTok{, }\AttributeTok{font\_size =} \DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begingroup\fontsize{7}{9}\selectfont
+
+\begin{longtable}[l]{llrrr}
+\caption{\label{tab:unnamed-chunk-2}Penguins!}\\
+\toprule
+species & island & bill\_length\_mm & bill\_depth\_mm & flipper\_length\_mm\\
+\midrule
+Adelie & Torgersen & 39.1 & 18.7 & 181\\
+Adelie & Torgersen & 39.5 & 17.4 & 186\\
+Adelie & Torgersen & 40.3 & 18.0 & 195\\
+Adelie & Torgersen & - & - & -\\
+Adelie & Torgersen & 36.7 & 19.3 & 193\\
+\bottomrule
+\end{longtable}
+\endgroup{}
+
 \section{Citing tables}\label{citing-tables}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(penguins[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
-             \AttributeTok{position =} \StringTok{"h!"}\NormalTok{, }
-             \AttributeTok{caption =} \StringTok{"Penguins!"}\NormalTok{ ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(penguins[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{caption =} \StringTok{"Penguins!"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -242,7 +244,7 @@ species & island & bill\_length\_mm & bill\_depth\_mm & flipper\_length\_mm\\
 Adelie & Torgersen & 39.1 & 18.7 & 181\\
 Adelie & Torgersen & 39.5 & 17.4 & 186\\
 Adelie & Torgersen & 40.3 & 18.0 & 195\\
-Adelie & Torgersen & NA & NA & NA\\
+Adelie & Torgersen & - & - & -\\
 Adelie & Torgersen & 36.7 & 19.3 & 193\\
 \bottomrule
 \end{longtable}
@@ -266,6 +268,8 @@ Table \ref{tab:penguinTable} is a table of penguins.
 \end{figure}
 
 Figure \ref{fig:penguinPlot} is a figure of penguins.
+
+\clearpage
 
 \section{Generating tables in a loop}\label{generating-tables-in-a-loop}
 
@@ -371,8 +375,7 @@ F Statistic & \multicolumn{1}{c}{12.063$^{***}$ (df = 5; 24)} & \multicolumn{1}{
 \end{tabular} 
 \end{table}
 
-\section{References}\label{references}
-
+\clearpage
 \bibliography{refs.bib}
 
 \end{document}

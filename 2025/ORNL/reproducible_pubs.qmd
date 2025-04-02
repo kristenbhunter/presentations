@@ -1,6 +1,6 @@
 ---
-title: "Publication Ready Documents Using R"
-subtitle: https://github.com/kristenbhunter/presentations/2025/ORNL
+title: "Publication-ready documents using R"
+subtitle: <span style="color:#268bd2;font-size:x-large">Materials can be found at</span> <br>[<span style="color:#268bd2;font-size:x-large">https://github.com/kristenbhunter/presentations/tree/master/2025/ORNL</span>](https://github.com/kristenbhunter/presentations/tree/master/2025/ORNL)
 author: Kristen Hunter
 date: April 2, 2025
 date-format: long
@@ -15,6 +15,15 @@ format:
 #| echo: false
 library(palmerpenguins)
 ```
+
+## About me
+
+- Lecturer in Statistics and Data Science
+- University of New South Wales, Sydney, Australia
+- Enthusiastic R user
+- Research interests: experimental design, causal inference, environmental science \& policy
+- Always happy to connect with people!
+
 
 ## Why use R markdown?
 
@@ -161,18 +170,32 @@ Two strategies:
 ## Extra notes
 
 - Advanced: You can re-use bits of R markdown across multiple files.
-  - See [<span style="color:pink">this blog post </span>](https://www.garrickadenbuie.com/blog/dry-vignette-and-readme/) for more info.
+  - See [<span style="color:#268bd2">this blog post </span>](https://www.garrickadenbuie.com/blog/dry-vignette-and-readme/) for more info.
 - R markdown and Quarto also produce word documents
 - You can write journal articles in quarto, but infrastructure is less developed
 
 ## References
 
-- [<span style="color:pink">rticles package</span>](https://github.com/rstudio/rticles)
-- [<span style="color:pink">gallery of rticles templates</span>](https://pkgs.rstudio.com/rticles/articles/examples.html)
-- [<span style="color:pink">chunk options</span>](https://yihui.org/knitr/options/#chunk-options)
-- [<span style="color:pink">gallery of ggplot themes</span>](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
-- [<span style="color:pink">quarto for scientists</span>](https://qmd4sci.njtierney.com/)
-- [<span style="color:pink">reproducible publishing with quarto</span>](https://mine-cetinkaya-rundel.github.io/quarto-jsm24/)
+Materials
+
+- [<span style="color:#268bd2;font-size:xx-large">https://github.com/kristenbhunter/presentations/tree/master/2025/ORNL</span>](https://github.com/kristenbhunter/presentations/tree/master/2025/ORNL)
+
+Original blog post
+
+- [<span style="color:#268bd2">CARES Blog</span>](https://cares-blog.gse.harvard.edu/post/2022-09-01-r-markdown/)
+
+
+## References
+
+Useful websites
+
+- [<span style="color:#268bd2">rticles package</span>](https://github.com/rstudio/rticles)
+- [<span style="color:#268bd2">gallery of rticles templates</span>](https://pkgs.rstudio.com/rticles/articles/examples.html)
+- [<span style="color:#268bd2">chunk options</span>](https://yihui.org/knitr/options/#chunk-options)
+- [<span style="color:#268bd2">gallery of ggplot themes</span>](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+- [<span style="color:#268bd2">quarto for scientists</span>](https://qmd4sci.njtierney.com/)
+- [<span style="color:#268bd2">reproducible publishing with quarto</span>](https://mine-cetinkaya-rundel.github.io/quarto-jsm24/)
+- [<span style="color:#268bd2">quarto journal templates</span>](https://quarto.org/docs/extensions/listing-journals.html)
 
 
 
