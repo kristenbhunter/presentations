@@ -1,0 +1,240 @@
+---
+title: "A primer on causal inference"
+subtitle: "School of BEES seminar series"
+author: "Kristen Hunter"
+date: 18 September 2025
+date-format: "DD MMMM YYYY"
+institute: "UNSW School of Mathematics and Statistics"
+fig-align: center
+format:
+  revealjs:
+    slide-number: true
+    html-math-method: mathjax
+    theme: [solarized, "theme.scss"]
+    width: 1600
+    height: 900
+    margin: 0.05
+    embed-resources: true
+bibliography: pres.bib
+---
+
+## A bit about me
+
+:::: {.columns}
+::: {.column width="40%"}
+::: {.content-visible when-format="html"}
+![](figures/headshot.jpg){width=550}
+:::
+:::
+::: {.column width="50%"}
+- Lecturer in Statistics and Data Science at UNSW since 2022.
+- Main research interests: experimental design & causal inference.
+  - Applications: environmental policy, education, health.
+  
+:::
+::::
+
+## Causal inference
+
+Causal inference attempts to estimate the [causal effect]{.highlight1} of an [intervention]{.highlight1} on a particular [outcome.]{.highlight1} Causal inference involves the [careful design and analysis]{.highlight1} of experiments and observational studies.
+
+<br>
+
+![](figures/xkcd.png){fig-align="center"}
+
+# Potential outcomes framework  {.transition-slide .center}
+
+##
+
+![](figures/po_slide1.png){fig-align="center"}
+
+
+##
+
+![](figures/po_slide2.png){fig-align="center"}
+
+##
+
+![](figures/po_slide3.png){fig-align="center"}
+
+##
+
+![](figures/po_slide4.png){fig-align="center"}
+
+##
+
+![](figures/po_slide5.png){fig-align="center"}
+
+##
+
+![](figures/po_slide6.png){fig-align="center"}
+
+##
+
+![](figures/po_slide7.png){fig-align="center"}
+
+##
+
+![](figures/po_slide8.png){fig-align="center"}
+
+##
+
+![](figures/po_slide9.png){fig-align="center"}
+
+##
+
+![](figures/po_slide10.png){fig-align="center"}
+
+## Fundamental problem
+
+<br><br>
+
+:::{.center-big}
+The fundamental problem of causal inference is that we only only observe one potential outcome.
+<br><br><br>
+Causal inference is a **missing data problem.**
+:::
+
+
+## Moving to many units
+
+- How do we solve the fundamental problem of causal inference?
+- Instead of thinking about individual-level treatment effects, focus on the **average** treatment effect (ATE).
+
+\begin{align*}
+\tau &= \bar{Y}(1) - \bar{Y}(0) \\
+&= \frac{1}{N} \sum_{i=1}^{N} \left[ Y_i(1) - Y_i(0)\right]\\
+\end{align*}
+
+## Moving to many units
+
+![](figures/po_slide11.png){fig-align="center"}
+
+
+## Categories of causal studies
+
+:::: {.columns}
+
+::: {.column width="45%"}
+**Randomised experiments**
+
+  - Treatment assignment is [controlled]{.highlight1} by the researcher.
+  - Clinical trials, education experiments, psychology, industrial experiments, agriculture, A/B testing in tech.
+  - Treatment groups tend to have [similar covariates]{.highlight1}. (We sometimes call this [balance]{.highlight1}.)
+  - Causal inference is straightforward.
+  - We still want to take care in design and analysis to get best possible answers.
+  
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="45%"}
+**Observational studies**
+
+  - Treatment assignment is [not controlled]{.highlight1} by the researcher.
+  - Epidemiology, criminology, political science, economics.
+  - Treatment groups [usually do not have similar covariates]{.highlight1}.
+  - Causal inference is difficult (sometimes impossible).
+  - Careful design & analysis is required.
+
+:::
+::::
+
+## Factorial experiments in environmental studies
+
+- [Factorial]{.highlight1}: I want to evaluate more than one factor and their interaction.
+  - What is the effect of different weed management strategies on ecosystem function? [@Iddris2023]. $2^2$ field experiment: high v. low fertilization, mechanical v. herbicide weeding
+- [Fractional factorial]{.highlight1}: I want to run a factorial experiment with many factors, but I don't have enough units for every possible combination.
+  - Toxicity evaluation of 10 different microplastics to aquatic organisms [@Enyoh2022].
+
+<!-- - What is the support level in the Global North for stricter global supply chain sustainability standards? [@Kolcava2023] -->
+<!--   - Survey experiment to test 36 combinations of 3 different factors: scope, transparency, and enforcement. -->
+
+## Blocked experiments in environmental studies
+
+- [Latin square]{.highlight1}: I want to reduce my variance/increase power by blocking on two potential sources of unwanted variation.
+  - Evaluate the effectiveness of a bycatch reduction devices by blocking on net and tow [@Burridge2000].
+- [Split-plot design]{.highlight1}: My units fall into batches and I want to avoid "bad" randomisations.
+  - Evaluate the effect of tillage on phosphorus leaching. For each parcel of land, randomly assign half of parcel to tillage and half to no tillage [@Butler2005].
+
+
+## Observational studies
+
+- [Confounding]{.highlight1}: In observational data, background characteristics can influence both (1) which treatment a unit receives, and (2) its potential outcomes.
+- The consequence is that effect estimates are [biased]{.highlight1} unless careful design and analysis is used.
+
+![](figures/confounding3.png){fig-align="center"}
+
+## Matching
+
+The goal of designing an observational study is to [approximate a randomised experiment]{.highlight1} as closely as possible, and mitigate the effects of confounding. One approach is **matching**.
+
+![](figures/matching.png){fig-align="center"}
+
+## Matching
+
+Statistical interpretation:
+
+- If we produce high quality matches, we can consider ourselves to [approximate a randomised experiment]{.highlight1}.
+- We can consider it a coin flip which unit happened to receive active treatment v. control treatment.
+- We have controlled for all [observed confounding variables]{.highlight1}.
+
+## Case study: evaluating carbon offsets
+
+**Question:** What is the impact of human-induced regeneration (HIR) carbon offset projects on forest cover? [@Macintosh2024]
+
+- HIR projects: regeneration of even-aged native forests through changes in land management on land that previously contained forest cover.
+- 5th largest nature-based solution offset in the world by carbon credit issuances.
+
+![](figures/HIR_map.png){fig-align="center"}
+
+## Scenario 1
+
+![](figures/scenario1.jpg){fig-align="center"}
+
+## Scenario 2
+
+![](figures/scenario2.jpg){fig-align="center"}
+
+## Scenario 3
+
+![](figures/scenario3.jpg){fig-align="center"}
+
+## Scenario 4
+
+![](figures/scenario4.jpg){fig-align="center"}
+
+<!-- ## Matching -->
+
+<!-- - **Matching goal**: for each pixel in a HIR project area, match it to a control unit not part of any HIR projects. -->
+<!-- - **Procedure**: match based on soil, rainfall, biome, distance to project pixel, etc. -->
+<!-- - **Result**: A good set of matches [isolates]{.highlight1} the causal effect of the HIR land management. -->
+
+## Initial results for HIR projects
+
+![](figures/CPC.png){fig-align="center"}
+
+## Some select challenges in causal inference
+
+- Incorporating time series and spatial information into causal methods
+- Matching based on high-dimensional data
+- Continuous treatments
+- Time-varying treatments
+- Complex outcome response surfaces
+- Interference between units
+
+## Thank you!
+
+<br>
+
+:::{.center-big}
+[I am actively seeking collaborative projects, especially related to environmental policy, and climate change. Please reach out!]{.highlight1}
+:::
+
+<br>
+
+![](figures/QR_codes.png){fig-align="center"}
+
+## References
